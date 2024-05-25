@@ -1,13 +1,14 @@
 import nodemailer from "nodemailer";
-import dotenv from "dotenv";
+
 
 // async..await is not allowed in global scope, must use a wrapper
 const sendEmail = async function (email, subject, message) {
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
+    service: "gmail",
     host: process.env.SMTP_HOST ,
     port: 587,
-    secure: false, // Use `true` for port 465, `false` for all other ports
+    secure: true, // Use `true` for port 465, `false` for all other ports
     auth: {
       user: process.env.SMTP_USERNAME,
       pass:  process.env.SMTP_PASSWORD,
@@ -20,7 +21,6 @@ const sendEmail = async function (email, subject, message) {
     to: 'utkarshchaturvedi890@gmail.com', // list of receivers
     //to get the mail from user so use 'req.body.email'
     subject: "Subject of the gmail", // Subject line
-
     html: "<b>Hello me?</b>", // html body
   });
 };
